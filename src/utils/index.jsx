@@ -1,0 +1,1 @@
+export { accordionData } from "./data";
