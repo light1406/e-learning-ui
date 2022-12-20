@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Fragment } from "react";
-import { publicRoutes, privateRoutes } from "@routes";
 import { DefaultLayout } from "@layouts";
+import { publicRoutes } from "@routes";
+import { Fragment } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import
 function App() {
+
   return (
     <Router>
       <div className="bg-backGround">

@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "@components/Banner";
 import Course from "@components/Course";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_USER_BY_ID } from "../../reduxs/types/userTypes";
 
 const Home = () => {
+  const user = useSelector(state => state.user.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem("user-id");
+    if (userId) {
+      dispatch({
+        type: GET_USER_BY_ID,
+        id: userId,
+      });
+    }
+  });
+
   return (
     <div className="">
       <Banner></Banner>

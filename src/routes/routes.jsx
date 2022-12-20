@@ -21,6 +21,8 @@ import Categories from "@pages/Categories";
 import Coming from "@pages/Coming";
 import Trending from "@pages/Trending";
 import ForgotPassword from "@pages/ForgotPassword";
+import Login from "@pages/Login";
+import Register from "@pages/Register";
 
 // Public routes
 const publicRoutes = [
@@ -28,7 +30,6 @@ const publicRoutes = [
   { path: config.routes.search, component: Search },
   { path: config.routes.active, component: Active },
   { path: config.routes.support, component: Support },
-  { path: config.routes.auth, component: Auth, layout: null },
   { path: config.routes.cart, component: Cart },
   { path: config.routes.courseDetail, component: CourseDetail },
   { path: config.routes.me, component: Me, layout: MeLayout },
@@ -78,6 +79,16 @@ const publicRoutes = [
     path: config.routes.coming,
     component: Coming,
   },
+  {
+    path: config.routes.login,
+    component: Login,
+    layout: null
+  },
+  {
+    path: config.routes.register,
+    component: Register,
+    layout: null
+  }
 ];
 
 const privateRoutes = [];

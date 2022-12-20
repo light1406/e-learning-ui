@@ -5,7 +5,6 @@ const routes = {
   active: "/active",
   support: "/support",
   source: "/source",
-  auth: "/auth",
   forgotPassword: "/forgot-password",
   cart: "/cart",
   courseDetail: "/course-detail",
@@ -21,6 +20,8 @@ const routes = {
   categories: "/categories",
   coming: "/coming",
   trending: "/trending",
+  login: "/login",
+  register: "/register",
 };
 
 export default routes;

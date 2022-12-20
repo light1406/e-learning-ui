@@ -10,6 +10,14 @@ const Cart = () => {
     dispatch(deleteFromCart(index));
   };
 
+  const getTotals = () => {
+    let total = 0;
+    courses.forEach((course) =>{
+      total += course.price;
+    });
+    return total;
+  }
+
   return (
     <div className="container p-6">
       <div className="max-w-[865px] mx-auto my-[40px] ">
@@ -76,12 +84,8 @@ const Cart = () => {
             <div className="">
               <div className="flex items-center gap-x-5">
                 <div className="text-[2.4rem] font-semibold text-primary">
-                  479,000đ
+                  Tổng giá: {getTotals()} $
                 </div>
-                <div className="text-lightBlack">Giá gốc: 899,000đ</div>
-              </div>
-              <div className="py-2 text-primary shadow-inner inline-block rounded-xl">
-                Tiết kiệm 47% (420,000đ)
               </div>
             </div>
             <div className="cursor-pointer px-6 py-4 bg-lightBlue rounded-xl">
@@ -154,7 +158,7 @@ const Cart = () => {
             />
           </svg>
 
-          <span>Hoàn tất đăng ký</span>
+          <span>Thanh toán</span>
         </button>
       </div>
     </div>

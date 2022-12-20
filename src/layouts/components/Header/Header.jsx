@@ -1,9 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { GET_USER_BY_ID } from "../../../reduxs/types/userTypes";
 
 const Header = () => {
-  const courses = useSelector(state => state.shopCart.courses);
+  const courses = useSelector((state) => state.shopCart.courses);
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem("user-id");
+    if (userId) {
+      dispatch({
+        type: GET_USER_BY_ID,
+        id: userId,
+      });
+    }
+  }, [dispatch]);
 
   const isLogged = false;
   const [isSearch, setIsSearch] = useState(false);
@@ -225,21 +238,26 @@ const Header = () => {
                 >
                   Hỗ trợ
                 </Link>
-                <Link
-                  to="/auth"
-                  className="text-primary border-2 border-primary rounded-full py-3 px-10 text-[1.8rem] font-medium ml-[4rem]"
-                >
-                  {isLogged ? "Khu vực học tập" : "Đăng nhập"}
-                </Link>
-                <li className="ml-[2rem]">
-                  <Link to="/me">
-                    <img
-                      src="https://kt.city/static/avatar/avatar11.jpg"
-                      alt=""
-                      className="w-[3.5rem] h-[3.5rem] rounded-full"
-                    />
+                {!isLogin && (
+                  <Link
+                    to="/login"
+                    className="text-primary border-2 border-primary rounded-full py-3 px-10 text-[1.8rem] font-medium ml-[4rem]"
+                  >
+                    Đăng nhập
                   </Link>
-                </li>
+                )}
+                {isLogin && (
+                  <li className="ml-[2rem]">
+                    <Link to="/me">
+                      <img
+                        src="https://kt.city/static/avatar/avatar11.jpg"
+                        alt=""
+                        className="w-[3.5rem] h-[3.5rem] rounded-full"
+                      />
+                    </Link>
+                  </li>
+                )}
+
                 <li className=""></li>
               </ul>
             </nav>
@@ -398,11 +416,6 @@ const Header = () => {
             <Link to="/support" className="">
               Hỗ trợ
             </Link>
-          </li>
-          <li>
-            <button className="block font-semibold w-[calc(100%_-_4rem)] mx-auto mt-5 py-[1rem] rounded-md text-white bg-primary">
-              Đăng nhập
-            </button>
           </li>
         </ul>
       </div>
