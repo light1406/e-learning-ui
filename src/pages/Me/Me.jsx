@@ -1,11 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Me = () => {
+  const user = useSelector(state => state.user.user);
+
   return (
     <div className="">
       <h2 className="text-[2.4rem] font-bold mb-4 text-primary">
-        Tài khoản: Tran Doan Kien Thuc
+        Tài khoản: {user && user.fname}
       </h2>
       <p className="mb-12 text-lightBlack">
         Quản lý thông tin cá nhân, đổi quà & xem lại hình thức thanh toán

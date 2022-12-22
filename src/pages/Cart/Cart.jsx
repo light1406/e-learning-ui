@@ -1,10 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 import { deleteFromCart } from "../../reduxs/slices/shopCartSlice";
+import { setOrderId } from "../../reduxs/slices/paymentBankingSlice";
+import { PAYMENT_BANKING } from "../../reduxs/types/orderTypes";
 
 const Cart = () => {
   const courses = useSelector((state) => state.shopCart.courses);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDeleteFromCart = (index) => {
     dispatch(deleteFromCart(index));
@@ -12,10 +18,44 @@ const Cart = () => {
 
   const getTotals = () => {
     let total = 0;
-    courses.forEach((course) =>{
+    courses.forEach((course) => {
       total += course.price;
     });
     return total;
+  };
+
+  const handlePaymentBanking = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    const courseIds = [];
+    courses.forEach((course) => {
+      courseIds.push({
+        id: course.id,
+      });
+    })
+    const order = {
+      id: v4().split("-")[0],
+      status: "Đang đợi thanh toán",
+      purchaseDate: new Date(),
+      user: {
+        id: user.id,
+      },
+      courses: courseIds
+    }
+    dispatch({
+      type: PAYMENT_BANKING,
+      order: order,
+      success: () => {
+        alert("Đơn hàng của bạn đã được thêm vào csdl, vui lòng thanh toán!");
+        dispatch(setOrderId(order.id));
+        navigate('/payment-banking');
+      },
+      fail: () => {
+        alert("thanh toán thất bại!");
+      }
+    })
   }
 
   return (
@@ -41,7 +81,12 @@ const Cart = () => {
                     <div className="text-[2.4rem] font-semibold text-primary">
                       {course.price} $
                     </div>
-                    <span className="text-[2rem] text-primary ml-auto cursor-pointer" onClick={() => {handleDeleteFromCart(index)}}>
+                    <span
+                      className="text-[2rem] text-primary ml-auto cursor-pointer"
+                      onClick={() => {
+                        handleDeleteFromCart(index);
+                      }}
+                    >
                       Bỏ khóa này
                     </span>
                   </div>
@@ -49,35 +94,6 @@ const Cart = () => {
               </div>
             );
           })}
-        </div>
-        <div className="shadow-xl py-6 px-[4rem] bg-white rounded-2xl">
-          <h3 className="text-[2.4rem] font-semibold mb-10">
-            Chọn phương thức thanh toán
-          </h3>
-          <div className="flex items-center justify-between shadow-inner p-6 rounded-xl cursor-pointer">
-            <div className="flex items-center w-[50%]">
-              <img
-                src="https://kt.city/static/icon-transfer.png"
-                alt=""
-                className="max-w-[4rem] mr-6"
-              />
-              <p className="font-semibold">Chuyển khoản ngân hàng</p>
-            </div>
-            <div className="payment__desc">Hoàn thành ngay</div>
-            <input type="radio" />
-          </div>
-          <div className="flex items-center justify-between shadow-inner p-6 rounded-xl cursor-pointer">
-            <div className="flex items-center w-[50%]">
-              <img
-                src="https://kt.city/static/icon-momo.png"
-                alt=""
-                className="max-w-[4rem] mr-6 "
-              />
-              <p className="font-semibold">Ví điện tử Momo</p>
-            </div>
-            <div className="payment__desc">Hoàn thành ngay</div>
-            <input type="radio" />
-          </div>
         </div>
         <div className="shadow-xl mt-[2rem] py-6 px-[4rem] bg-backGround rounded-2xl">
           <div className="flex items-center justify-between ">
@@ -142,24 +158,33 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <button className="w-full flex justify-center items-center bg-primary  mt-20 p-6 rounded-xl text-white font-semibold">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-
-          <span>Thanh toán</span>
-        </button>
+        <div className="shadow-xl py-6 px-[4rem] bg-white rounded-2xl">
+          <h3 className="text-[2.4rem] font-semibold mb-10">
+            Chọn phương thức thanh toán
+          </h3>
+          <div className="flex items-center justify-between shadow-inner p-6 rounded-xl cursor-pointer">
+            <div className="flex items-center w-[50%]">
+              <img
+                src="https://kt.city/static/icon-transfer.png"
+                alt=""
+                className="max-w-[4rem] mr-6"
+              />
+              <p className="font-semibold">Chuyển khoản ngân hàng</p>
+            </div>
+            <div className="payment__desc" onClick={handlePaymentBanking}>Thanh toán</div>
+          </div>
+          <div className="flex items-center justify-between shadow-inner p-6 rounded-xl cursor-pointer">
+            <div className="flex items-center w-[50%]">
+              <img
+                src="https://kt.city/static/icon-momo.png"
+                alt=""
+                className="max-w-[4rem] mr-6 "
+              />
+              <p className="font-semibold">Ví điện tử Momo</p>
+            </div>
+            <div className="payment__desc">Thanh toán</div>
+          </div>
+        </div>
       </div>
     </div>
   );

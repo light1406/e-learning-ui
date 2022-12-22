@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { GET_ORDER_BY_USER_ID } from "../../reduxs/types/orderTypes";
 
 const OrderHistory = () => {
+  const user = useSelector((state) => state.user.user);
+  const orderHistory = useSelector((state) => state.user.orderHistory);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!user) return;
+    dispatch({
+      type: GET_ORDER_BY_USER_ID,
+      userId: user.id,
+    });
+  }, [dispatch]);
+
   return (
     <div className="">
       <div className="heading flex items-center gap-x-5">
@@ -116,57 +131,27 @@ const OrderHistory = () => {
           </svg>
         </div>
       </div>
-      <div className="mt-6 px-8 py-10 shadow-xl rounded-3xl">
-        <div className="flex justify-between mb-5 font-semibold">
-          <h3 className="text-[2rem]">VT3XAX</h3>
-          <h3 className="bg-primary rounded-xl py-2 px-3 text-white">
-            Đã duyệt
-          </h3>
-        </div>
-        <div className="flex items-center gap-x-6 text-[1.8rem] text-lightBlack">
-          <span>22/07/2021</span>
-          <img
-            src="https://kt.city/static/pm-vnpay.png"
-            alt=""
-            className="max-h-[2rem]"
-          />
-          <span>VNPay(649,000đ)</span>
-        </div>
-      </div>
-      <div className="mt-6 px-8 py-10 shadow-xl rounded-3xl">
-        <div className="flex justify-between mb-5 font-semibold">
-          <h3 className="text-[2rem]">VT3XAX</h3>
-          <h3 className="bg-primary rounded-xl py-2 px-3 text-white">
-            Đã duyệt
-          </h3>
-        </div>
-        <div className="flex items-center gap-x-6 text-[1.8rem] text-lightBlack">
-          <span>22/07/2021</span>
-          <img
-            src="https://kt.city/static/pm-vnpay.png"
-            alt=""
-            className="max-h-[2rem]"
-          />
-          <span>VNPay(649,000đ)</span>
-        </div>
-      </div>
-      <div className="mt-6 px-8 py-10 shadow-xl rounded-3xl">
-        <div className="flex justify-between mb-5 font-semibold">
-          <h3 className="text-[2rem]">VT3XAX</h3>
-          <h3 className="bg-primary rounded-xl py-2 px-3 text-white">
-            Đã duyệt
-          </h3>
-        </div>
-        <div className="flex items-center gap-x-6 text-[1.8rem] text-lightBlack">
-          <span>22/07/2021</span>
-          <img
-            src="https://kt.city/static/pm-vnpay.png"
-            alt=""
-            className="max-h-[2rem]"
-          />
-          <span>VNPay(649,000đ)</span>
-        </div>
-      </div>
+      {orderHistory.map((order) => {
+        return (
+          <div className="mt-6 px-8 py-10 shadow-xl rounded-3xl">
+            <div className="flex justify-between mb-5 font-semibold">
+              <h3 className="text-[2rem]">{order.id}</h3>
+              <h3 className="bg-primary rounded-xl py-2 px-3 text-white">
+                {order.status}
+              </h3>
+            </div>
+            <div className="flex items-center gap-x-6 text-[1.8rem] text-lightBlack">
+              <span>{order.purchaseDate}</span>
+              <img
+                src="https://kt.city/static/pm-vnpay.png"
+                alt=""
+                className="max-h-[2rem]"
+              />
+              <span>{order.totalPrice} $</span>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

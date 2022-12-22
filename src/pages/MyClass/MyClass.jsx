@@ -1,7 +1,22 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { GET_COURSE_BY_ID_LEARNING } from "../../reduxs/types/courseDetailTypes";
 
 const MyClass = () => {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [actived, setActived] = useState(1);
+
+  const handleShowCourse = (id) => {
+    dispatch({
+      type: GET_COURSE_BY_ID_LEARNING,
+      id: id
+    });
+    navigate("/learning");
+  }
   return (
     <div className="container relative shadow-2xl">
       <h1 className="text-[2.4rem] font-semibold mb-3 text-primary">
@@ -39,57 +54,27 @@ const MyClass = () => {
       {/* Mine */}
       {actived === 1 && (
         <>
-          <div className="shadow-2xl flex items-center my-10 rounded-3xl cursor-pointer">
-            <img
-              src="https://static.kt.city/cjxtrhjqs00we098574enz0ng/screen3-1614078279300.jpg"
-              alt=""
-              className="w-[19rem] h-[19rem] rounded-3xl"
-            />
-            <div className="flex flex-col gap-y-4 px-12">
-              <h3 className="font-semibold text-[1.8rem]">
-                Khoá học HTML CSS nâng cao cắt giao diện toàn tập với Gulp, Pug
-                và Sass
-              </h3>
-              <h4>Học cách đây 2 tháng trước</h4>
-              <div className="bg-lightBlue rounded-2xl h-4">
-                <div className="bg-primary w-[80%] rounded-2xl h-4"></div>
-              </div>
-            </div>
-          </div>
-          <div className="shadow-2xl flex items-center my-10 rounded-3xl cursor-pointer">
-            <img
-              src="https://static.kt.city/cjxtrhjqs00we098574enz0ng/screen3-1614078279300.jpg"
-              alt=""
-              className="w-[19rem] h-[19rem] rounded-3xl"
-            />
-            <div className="flex flex-col gap-y-4 px-12">
-              <h3 className="font-semibold text-[1.8rem]">
-                Khoá học HTML CSS nâng cao cắt giao diện toàn tập với Gulp, Pug
-                và Sass
-              </h3>
-              <h4>Học cách đây 2 tháng trước</h4>
-              <div className="bg-lightBlue rounded-2xl h-4">
-                <div className="bg-primary w-[80%] rounded-2xl h-4"></div>
-              </div>
-            </div>
-          </div>
-          <div className="shadow-2xl flex items-center my-10 rounded-3xl cursor-pointer">
-            <img
-              src="https://static.kt.city/cjxtrhjqs00we098574enz0ng/screen3-1614078279300.jpg"
-              alt=""
-              className="w-[19rem] h-[19rem] rounded-3xl"
-            />
-            <div className="flex flex-col gap-y-4 px-12">
-              <h3 className="font-semibold text-[1.8rem]">
-                Khoá học HTML CSS nâng cao cắt giao diện toàn tập với Gulp, Pug
-                và Sass
-              </h3>
-              <h4>Học cách đây 2 tháng trước</h4>
-              <div className="bg-lightBlue rounded-2xl h-4">
-                <div className="bg-primary w-[80%] rounded-2xl h-4"></div>
-              </div>
-            </div>
-          </div>
+          {user &&
+            user.registeredCourses.map((course) => {
+              return (
+                <div key={course.id} className="shadow-2xl flex items-center my-10 rounded-3xl cursor-pointer" onClick={() => handleShowCourse(course.id)}>
+                  <img
+                    src={course.coverUrl}
+                    alt=""
+                    className="w-[19rem] h-[19rem] rounded-3xl"
+                  />
+                  <div className="flex flex-col gap-y-4 px-12">
+                    <h3 className="font-semibold text-[1.8rem]">
+                      {course.title}
+                    </h3>
+                    <h4>Số bài học: {course.lessonNumber}</h4>
+                    <div className="bg-lightBlue rounded-2xl h-4">
+                      <div className="bg-primary w-[80%] rounded-2xl h-4"></div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
         </>
       )}
       {/* trend 24h */}

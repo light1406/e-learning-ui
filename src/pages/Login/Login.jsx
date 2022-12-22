@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FacebookLogin from 'react-facebook-login';
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN } from "../../reduxs/types/userTypes";
@@ -12,14 +13,15 @@ const Login = () => {
 
   const handleChangeUsername = (event) => {
     setUsername(event.target.value);
-  }
+  };
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
   const handleLogin = () => {
-    if (username === "" && password === "")alert("Vui lòng điền đầy đủ thông tin!");
+    if (username === "" && password === "")
+      alert("Vui lòng điền đầy đủ thông tin!");
     dispatch({
       type: LOGIN,
       username: username,
@@ -31,9 +33,17 @@ const Login = () => {
       },
       fail: () => {
         alert("Đăng nhập thất bại");
-      }
-    })
+      },
+    });
   };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+
+  const componentClicked = (data) => {
+    console.log(data);
+  }
 
   return (
     <>
@@ -54,23 +64,22 @@ const Login = () => {
             100.000 thành viên khác
           </p>
           <h5 className="mb-1">Đăng nhập bằng</h5>
-          <div className="grid grid-cols-2 gap-x-[2rem] my-[2rem]">
-            <button className="flex items-center justify-center bg-primary py-4 px-6 rounded-xl">
+          <div className="grid gap-x-[2rem] my-[2rem]">
+            {/* <button className="flex items-center justify-center bg-primary py-4 px-6 rounded-xl">
               <img
                 className="mr-[1.5rem]"
                 src="https://kt.city/static/icon-social-google.svg"
                 alt=""
               />
               <span className="font-semibold text-white">Google</span>
-            </button>
-            <button className="flex items-center justify-center bg-primary py-4  px-6  rounded-xl">
-              <img
-                className="mr-[1.5rem]"
-                src="https://kt.city/static/icon-social-facebook.svg"
-                alt=""
-              />
-              <span className="font-semibold text-white">Facebook</span>
-            </button>
+            </button> */}
+            {/* <FacebookLogin
+              appId="799821774413734"
+              autoLoad={true}
+              fields="name,email,picture"
+              onClick={componentClicked}
+              callback={responseFacebook}
+            /> */}
           </div>
           <h5 className="mb-[1.5rem]">Hoặc đăng nhập bằng tài khoản</h5>
 
@@ -130,7 +139,10 @@ const Login = () => {
                 </Link>
               </h3>
             </>
-            <div className="bg-primary w-full p-4 rounded-xl text-white font-semibold mb-5 text-center cursor-pointer select-none" onClick={handleLogin}>
+            <div
+              className="bg-primary w-full p-4 rounded-xl text-white font-semibold mb-5 text-center cursor-pointer select-none"
+              onClick={handleLogin}
+            >
               Đăng nhập
             </div>
             <div className="flex gap-x-3">

@@ -1,0 +1,5 @@
+const GET_LESSON_VIDEO_BY_ID = 'GET_LESSON_VIDEO_BY_ID';
+
+export {
+    GET_LESSON_VIDEO_BY_ID
+}

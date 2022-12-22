@@ -1,9 +1,12 @@
 import { DefaultLayout } from "@layouts";
 import { publicRoutes } from "@routes";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { setUser } from './reduxs/slices/userSlice';
 // import
 function App() {
+
 
   return (
     <Router>

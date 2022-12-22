@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setUser } from "../../../reduxs/slices/userSlice";
 
 const Sidebar = () => {
+  const user = useSelector(state => state.user.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = sessionStorage.getItem('user');
+    if (user) dispatch(setUser(user));
+  }, [dispatch])
+
   return (
     <div className="shadow-xl rounded-2xl w-[30%] text-primary max-w-[25%]">
       <div className="flex items-center gap-x-4 px-6 pb-[4rem] border-b border-b-primary">
         <img
-          src="https://kt.city/static/avatar/avatar10.jpg"
+          src={user && user.avtUrl ? user.avtUrl : "https://kt.city/static/avatar/avatar10.jpg"}
           alt=""
           className="w-[5.5rem] h-[5.5rem] rounded-full"
         />
         <div className="">
-          <h2 className="font-semibold">Tran Doan Kien Thuc</h2>
+          <h2 className="font-semibold">{user && user.fname}</h2>
           <span className="text-[1.4rem] text-lightBlack">
-            Người dùng tại Ktcity
+            Người dùng
           </span>
         </div>
       </div>

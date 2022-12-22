@@ -23,6 +23,9 @@ import Trending from "@pages/Trending";
 import ForgotPassword from "@pages/ForgotPassword";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
+import PaymentBanking from "../pages/PaymentBanking";
+import Learning from "../pages/Learning";
+import LearningLayout from "../layouts/LearingLayout/LearningLayout";
 
 // Public routes
 const publicRoutes = [
@@ -88,6 +91,15 @@ const publicRoutes = [
     path: config.routes.register,
     component: Register,
     layout: null
+  },
+  {
+    path: config.routes.paymentBanking,
+    component: PaymentBanking
+  },
+  {
+    path: config.routes.learning,
+    component: Learning,
+    layout: LearningLayout
   }
 ];
 

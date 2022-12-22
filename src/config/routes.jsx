@@ -22,6 +22,8 @@ const routes = {
   trending: "/trending",
   login: "/login",
   register: "/register",
+  paymentBanking: "/payment-banking",
+  learning: "/learning",
 };
 
 export default routes;

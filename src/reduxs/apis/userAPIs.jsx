@@ -17,3 +17,14 @@ export const handleGetUserById = (id) => {
                 .then(response => response.data)
                 .catch(error => Promise.reject(error));
 }
+
+export const handleGetUserEntityByUserName = (username) => {
+    return axios
+            .get(`http://localhost:8080/tmdt/user/get-entity-by-username?username=${username}`)
+            .then(response => response.data)
+            .catch(error => Promise.reject(error));
+}
+
+export const handleChangePassword = (username, password) => {
+    return axios.put(`http://localhost:8080/tmdt/user/change-password?username=${username}&password=${password}`);
+}
