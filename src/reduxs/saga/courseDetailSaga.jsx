@@ -15,7 +15,7 @@ export function* onHandleGetCourseById(action) {
 export function* onHandleGetCourseByIdForLearning(action) {
   const course = yield handleGetCourseDetailById(action.id);
   yield put(setCourseLearning(course));
-  if (chapters.length > 0 && chapters[0].lessonVideos.length > 0)
+  if (course.chapters.length > 0 && course.chapters[0].lessonVideos.length > 0)
     yield put(setLesson(course.chapters[0].lessonVideos[0]));
 }
 

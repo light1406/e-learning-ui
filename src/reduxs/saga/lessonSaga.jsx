@@ -6,6 +6,7 @@ import { GET_LESSON_VIDEO_BY_ID } from "../types/lessonType";
 export function* onHandleGetLessonVideoById(action){
     const lessonVideo = yield handleGetLessonVideoById(action.id);
     yield put(setLesson(lessonVideo));
+    console.log(lessonVideo);
 }
 
 export function* allLessonSaga(){

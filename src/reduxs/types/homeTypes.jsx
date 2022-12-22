@@ -1,0 +1,4 @@
+const GET_NEW_UPDATE = 'GET_NEW_UPDATE';
+export{
+    GET_NEW_UPDATE
+}

@@ -5,6 +5,7 @@ import userSlice from "./slices/userSlice";
 import paymentBankingSlice from "./slices/paymentBankingSlice";
 import learingSlice from "./slices/learingSlice";
 import forgotPasswordSlice from "./slices/forgotPasswordSlice";
+import homeSlice from "./slices/homeSlice";
 
 export const rootReducer = {
     categories: categoriesSlice,
@@ -13,5 +14,6 @@ export const rootReducer = {
     user: userSlice,
     paymenBanking: paymentBankingSlice,
     learning: learingSlice,
-    forgotPassword: forgotPasswordSlice
+    forgotPassword: forgotPasswordSlice,
+    home: homeSlice,
 }

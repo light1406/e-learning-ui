@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from "react-facebook-login";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN } from "../../reduxs/types/userTypes";
@@ -37,14 +37,6 @@ const Login = () => {
     });
   };
 
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
-
-  const componentClicked = (data) => {
-    console.log(data);
-  }
-
   return (
     <>
       <div className="flex justify-between">
@@ -63,25 +55,7 @@ const Login = () => {
             Học tập, kết nối, thảo luận & xây dựng thương hiệu cá nhân cùng hơn
             100.000 thành viên khác
           </p>
-          <h5 className="mb-1">Đăng nhập bằng</h5>
-          <div className="grid gap-x-[2rem] my-[2rem]">
-            {/* <button className="flex items-center justify-center bg-primary py-4 px-6 rounded-xl">
-              <img
-                className="mr-[1.5rem]"
-                src="https://kt.city/static/icon-social-google.svg"
-                alt=""
-              />
-              <span className="font-semibold text-white">Google</span>
-            </button> */}
-            {/* <FacebookLogin
-              appId="799821774413734"
-              autoLoad={true}
-              fields="name,email,picture"
-              onClick={componentClicked}
-              callback={responseFacebook}
-            /> */}
-          </div>
-          <h5 className="mb-[1.5rem]">Hoặc đăng nhập bằng tài khoản</h5>
+          <h5 className="mb-[1.5rem]">Đăng nhập bằng tài khoản</h5>
 
           <form action="" className="w-full">
             <div className="relative">

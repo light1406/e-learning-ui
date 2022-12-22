@@ -231,7 +231,7 @@ const FortgotPassword = () => {
                   />
                 </svg>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Mật khẩu"
                   className="w-full mb-[1.5rem] bg-lightBlue p-4 pl-20 rounded-xl"
                   value={password}
@@ -254,7 +254,7 @@ const FortgotPassword = () => {
                   />
                 </svg>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Nhập lại mật khẩu"
                   className="w-full mb-[1.5rem] bg-lightBlue p-4 pl-20 rounded-xl"
                   value={passwordConfirm}
